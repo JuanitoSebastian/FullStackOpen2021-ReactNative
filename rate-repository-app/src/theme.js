@@ -4,7 +4,9 @@ const theme = {
     textSecondary: '#586069',
     primary: '#0366d6',
     tabBar: '#24292e',
-    textTabBar: '#ffffff'
+    textTabBar: '#ffffff',
+    backdrop: '#E1E5E8',
+    repositoryItemBg: '#FFFFFF'
   },
   fontSizes: {
     body: 14,

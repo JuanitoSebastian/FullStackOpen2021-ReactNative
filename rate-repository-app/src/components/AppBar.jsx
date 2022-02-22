@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import AppBarTab from './AppBarTab';
 import Constants from 'expo-constants';
 
@@ -12,20 +12,27 @@ const AppBar = () => {
       justifyContent: 'space-evenly',
       alignItems: 'flex-end',
       flexDirection: 'row',
-      width: Constants.width,
       height: 100,
       paddingTop: Constants.statusBarHeight,
       paddingBottom: 20,
       paddingLeft: 20,
       paddingRight: 20,
       backgroundColor: theme.colors.tabBar
+    },
+    spacer: {
+      width: 16
     }
   });
 
-  return <View style={styles.flexContainer}>
-    <AppBarTab tabName='Repositories' />
-    <AppBarTab tabName='My Profile' />
-  </View>;
+  return (
+    <View style={styles.flexContainer}>
+      <ScrollView horizontal>
+          <AppBarTab tabName='Repositories' destination='/' />
+          <View style={styles.spacer} />
+          <AppBarTab tabName='Sign In' destination='/signin' />
+      </ScrollView >
+    </View>
+  );
 };
 
 export default AppBar;
