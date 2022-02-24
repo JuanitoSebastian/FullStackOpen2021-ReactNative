@@ -6,7 +6,8 @@ const theme = {
     tabBar: '#24292e',
     textTabBar: '#ffffff',
     backdrop: '#E1E5E8',
-    repositoryItemBg: '#FFFFFF'
+    contentBackground: '#FFFFFF',
+    error: '#d73a4a'
   },
   fontSizes: {
     body: 14,
@@ -18,7 +19,7 @@ const theme = {
   fontWeights: {
     normal: '400',
     bold: '700',
-  },
+  }
 };
 
 export default theme;

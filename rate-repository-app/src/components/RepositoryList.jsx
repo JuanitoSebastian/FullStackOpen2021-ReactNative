@@ -17,7 +17,7 @@ const RepositoryList = () => {
     },
     flexItem: {
       flexGrow: 0,
-      backgroundColor: theme.colors.repositoryItemBg,
+      backgroundColor: theme.colors.contentBackground,
       borderRadius: 10,
       maxWidth: '100%',
       width: 'auto',
