@@ -1,10 +1,16 @@
 import { FlatList, View, StyleSheet } from 'react-native';
 import RepositoryItem from './RepositoryItem';
-import repositories from '../utils/repo_list';
-import theme from '../theme';
+import theme from '../../theme';
+import useRepositories from '../../hooks/useRepositories';
 
 const RepositoryList = () => {
 
+  const { data, loading } = useRepositories();
+
+  if (loading) { return null; }
+
+  const repositories = data.repositories.edges.map(edge => edge.node);
+  
   const styles = StyleSheet.create({
     flexContainer: {
       display: 'flex',
@@ -24,22 +30,22 @@ const RepositoryList = () => {
       padding: 16
     }
   });
-  
+
   const ItemSeparator = () => <View style={styles.separator} />;
 
   return (
     <View style={styles.flexContainer}>
       <ItemSeparator />
       <FlatList
-      data={repositories}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => (
-        <View style={styles.flexItem}>
-          <RepositoryItem {...item} />
-        </View>
-      )}
+        data={repositories}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => (
+          <View style={styles.flexItem}>
+            <RepositoryItem {...item} />
+          </View>
+        )}
       />
-    </View> 
+    </View>
   );
 };
 

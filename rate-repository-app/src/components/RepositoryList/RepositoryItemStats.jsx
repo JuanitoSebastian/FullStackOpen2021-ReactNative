@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
-import { numberFormatter } from '../utils/number_formatter';
-import Text from './Text';
+import { numberFormatter } from '../../utils/number_formatter';
+import Text from '../Text';
 
 const RepositoryItemStats = (props) => {
 

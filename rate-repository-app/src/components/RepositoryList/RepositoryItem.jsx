@@ -1,6 +1,6 @@
 import { View, StyleSheet, Image } from 'react-native';
 import RepositoryItemStats from './RepositoryItemStats';
-import Text from './Text';
+import Text from '../Text';
 
 const RepositoryItem = (props) => {
 

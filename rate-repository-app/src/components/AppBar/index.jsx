@@ -2,7 +2,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import AppBarTab from './AppBarTab';
 import Constants from 'expo-constants';
 
-import theme from '../theme';
+import theme from '../../theme';
 
 const AppBar = () => {
 
