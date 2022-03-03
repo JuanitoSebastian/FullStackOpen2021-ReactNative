@@ -14,3 +14,10 @@ export const REPOSITORY_DETAILS = gql`
     ownerAvatarUrl
   }
 `;
+
+export const USER_DETAILS = gql`
+  fragment UserDetails on User {
+    id
+    username
+  }
+`;
