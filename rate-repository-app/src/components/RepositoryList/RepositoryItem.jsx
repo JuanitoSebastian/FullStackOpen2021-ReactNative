@@ -1,6 +1,8 @@
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Pressable } from 'react-native';
+import * as Linking from 'expo-linking';
 import RepositoryItemStats from './RepositoryItemStats';
 import Text from '../Text';
+import theme from '../../theme';
 
 const RepositoryItem = (props) => {
 
@@ -32,9 +34,23 @@ const RepositoryItem = (props) => {
     tinyLogo: {
       width: 50,
       height: 50,
+    },
+    submitButton: {
+      backgroundColor: theme.colors.primary,
+      padding: 12,
+      borderRadius: 6,
+      marginLeft: 8,
+      marginRight: 8,
+      marginTop: 8
+    },
+    submitText: {
+      textAlign: 'center'
     }
   });
 
+  const handleGitHubPress = () => {
+    Linking.openURL(props.url);
+  };
 
   return (
     <View testID='repositoryItem' sytle={styles.repositoryItemFlexContainer}>
@@ -54,6 +70,12 @@ const RepositoryItem = (props) => {
         </View>
       </View>
       <RepositoryItemStats {...props} />
+      {props.githubButton &&
+        <Pressable style={styles.submitButton} onPress={handleGitHubPress}>
+          <Text color='tabBarHeading' fontWeight='bold' style={styles.submitText}>Open in GitHub</Text>
+        </Pressable>
+      }
+
     </View>
   );
 

@@ -14,6 +14,15 @@ export const ALL_REPOSITORIES = gql`
   ${REPOSITORY_DETAILS}
 `;
 
+export const FIND_REPOSITORY = gql`
+  query repository($repositoryId: ID!) {
+    repository(id: $repositoryId) {
+      ...RepositoryDetails
+    }
+  }
+  ${REPOSITORY_DETAILS}
+`;
+
 export const CURRENT_USER = gql`
   query {
     me {
