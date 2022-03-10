@@ -37,7 +37,7 @@ const RepositoryItem = (props) => {
 
 
   return (
-    <View sytle={styles.repositoryItemFlexContainer}>
+    <View testID='repositoryItem' sytle={styles.repositoryItemFlexContainer}>
       <View style={styles.repositoryItemFlexItem}>
         <View style={styles.headerRowFlexContainer}>
           <View style={styles.headerRowFlexItem}>

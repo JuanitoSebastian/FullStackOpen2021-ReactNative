@@ -1,16 +1,11 @@
 import { FlatList, View, StyleSheet } from 'react-native';
 import RepositoryItem from './RepositoryItem';
-import theme from '../../theme';
 import useRepositories from '../../hooks/useRepositories';
+import theme from '../../theme';
 
-const RepositoryList = () => {
+export const RepositoryListContainer = ({ repositories }) => {
+  const repositoryNodes = repositories.edges.map(edge => edge.node);
 
-  const { data, loading } = useRepositories();
-
-  if (loading) { return null; }
-
-  const repositories = data.repositories.edges.map(edge => edge.node);
-  
   const styles = StyleSheet.create({
     flexContainer: {
       display: 'flex',
@@ -37,7 +32,7 @@ const RepositoryList = () => {
     <View style={styles.flexContainer}>
       <ItemSeparator />
       <FlatList
-        data={repositories}
+        data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={({ item }) => (
           <View style={styles.flexItem}>
@@ -46,6 +41,17 @@ const RepositoryList = () => {
         )}
       />
     </View>
+  );
+};
+
+const RepositoryList = () => {
+
+  const { data, loading } = useRepositories();
+
+  if (loading) { return null; }
+
+  return (
+    <RepositoryListContainer repositories={data.repositories} />
   );
 };
 

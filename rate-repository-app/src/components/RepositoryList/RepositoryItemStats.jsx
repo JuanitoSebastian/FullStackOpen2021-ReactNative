@@ -18,7 +18,7 @@ const RepositoryItemStats = (props) => {
   });
 
   return (
-    <View style={styles.statsContainer}>
+    <View testID='repositoryItemStats' style={styles.statsContainer}>
       <View style={styles.statsItem}>
         <Text fontWeight='bold'>{numberFormatter(props.stargazersCount)}</Text>
         <Text color='textSecondary'>Stars</Text>

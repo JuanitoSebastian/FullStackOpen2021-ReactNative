@@ -3,7 +3,7 @@ export const numberFormatter = (number) => {
     return String(number);
   }
 
-  const numberString = String(Math.round((number * 0.0001) * 10) / 10);
+  const numberString = String(Math.round((number * 0.001) * 10) / 10);
 
   return `${numberString}k`;
 };
