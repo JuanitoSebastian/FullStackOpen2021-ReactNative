@@ -16,6 +16,27 @@ export const REPOSITORY_DETAILS = gql`
   }
 `;
 
+export const REPOSITORY_AND_REVIEW_DETAILS = gql`
+  fragment RepositoryAndReviewDetails on Repository {
+    ...RepositoryDetails
+    reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
+  }
+  ${REPOSITORY_DETAILS}
+`;
+
 export const USER_DETAILS = gql`
   fragment UserDetails on User {
     id

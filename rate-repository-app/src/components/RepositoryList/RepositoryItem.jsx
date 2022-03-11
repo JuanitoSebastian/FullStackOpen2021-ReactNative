@@ -1,8 +1,9 @@
-import { View, StyleSheet, Image, Pressable } from 'react-native';
+import { View, StyleSheet, Image, Pressable, FlatList } from 'react-native';
 import * as Linking from 'expo-linking';
 import RepositoryItemStats from './RepositoryItemStats';
 import Text from '../Text';
 import theme from '../../theme';
+import ReviewView from '../ReviewView';
 
 const RepositoryItem = (props) => {
 
@@ -45,12 +46,24 @@ const RepositoryItem = (props) => {
     },
     submitText: {
       textAlign: 'center'
+    },
+    separator: {
+      height: 12
+    },
+    reviewList: {
+      paddingTop: 4
     }
   });
 
   const handleGitHubPress = () => {
     Linking.openURL(props.url);
   };
+
+  const reviews = props.detailed
+    ? props.reviews.edges.map(edge => edge.node)
+    : undefined;
+
+  const ItemSeparator = () => <View style={styles.separator} />;
 
   return (
     <View testID='repositoryItem' sytle={styles.repositoryItemFlexContainer}>
@@ -70,10 +83,20 @@ const RepositoryItem = (props) => {
         </View>
       </View>
       <RepositoryItemStats {...props} />
-      {props.githubButton &&
-        <Pressable style={styles.submitButton} onPress={handleGitHubPress}>
-          <Text color='tabBarHeading' fontWeight='bold' style={styles.submitText}>Open in GitHub</Text>
-        </Pressable>
+      {props.detailed &&
+        <View>
+          <Pressable style={styles.submitButton} onPress={handleGitHubPress}>
+            <Text color='tabBarHeading' fontWeight='bold' style={styles.submitText}>Open in GitHub</Text>
+          </Pressable>
+          <FlatList
+            style={styles.reviewList}
+            data={reviews}
+            renderItem={({ item }) => <ReviewView {...item} />}
+            ItemSeparatorComponent={ItemSeparator}
+            keyExtractor={({ id }) => id}
+            ListFooterComponent={<View style={{height: 600}}/>}
+          />
+        </View>
       }
 
     </View>

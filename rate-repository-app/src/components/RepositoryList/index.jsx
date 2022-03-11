@@ -47,6 +47,7 @@ export const RepositoryListContainer = ({ repositories }) => {
             </Pressable>
           </View>
         )}
+        ListFooterComponent={<View style={{height: 150}}/>}
       />
     </View>
   );

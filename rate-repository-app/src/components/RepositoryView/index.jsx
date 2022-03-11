@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import theme from '../../theme';
 import { useParams } from 'react-router-native';
 import RepositoryItem from '../RepositoryList/RepositoryItem';
@@ -31,7 +31,7 @@ const RepositoryView = () => {
   if (repo) {
     return (
       <View style={styles.flexItem}>
-        <RepositoryItem {...repo} githubButton={true} />
+        <RepositoryItem {...repo} detailed={true} />
       </View>
     );
   }
