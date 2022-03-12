@@ -45,14 +45,20 @@ const AppBar = () => {
       <ScrollView horizontal>
           <AppBarTabLink tabName='Repositories' destination='/' />
           <View style={styles.spacer} />
-          { data.me !== null && 
+          { data.me !== null && // User signed in
             <>
               <AppBarTabLink tabName='Create Review' destination='/create' />
               <View style={styles.spacer} />
               <AppBarTabButton tabName='Sign Out' action={logOut} />
             </>
           }
-          { data.me === null && <AppBarTabLink tabName='Sign In' destination='/signin' /> }
+          { data.me === null && // User not signed in
+          <>
+            <AppBarTabLink tabName='Sign In' destination='/signin' />
+            <View style={styles.spacer} />
+            <AppBarTabLink tabName='Sign Up' destination='/signup' />
+          </>
+          }
       </ScrollView >
     </View>
   );
