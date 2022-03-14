@@ -21,6 +21,12 @@ export const ALL_REPOSITORIES_ORDERED = gql`
         node {
           ...RepositoryDetails
         }
+        cursor
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
       }
     }
   }
@@ -28,15 +34,21 @@ export const ALL_REPOSITORIES_ORDERED = gql`
 `;
 
 export const ALL_REPOSITORIES_ORDERED_SEARCH = gql`
-query repositories($orderDirection: OrderDirection, $orderBy: AllRepositoriesOrderBy, $searchKeyword: String) {
-  repositories(orderDirection: $orderDirection, orderBy: $orderBy, searchKeyword: $searchKeyword) {
-    edges {
-      node {
-        ...RepositoryDetails
+  query repositories($orderDirection: OrderDirection, $orderBy: AllRepositoriesOrderBy, $searchKeyword: String, $first: Int, $after: String) {
+    repositories(orderDirection: $orderDirection, orderBy: $orderBy, searchKeyword: $searchKeyword, first: $first, after: $after) {
+      edges {
+        node {
+          ...RepositoryDetails
+        }
+        cursor
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
       }
     }
   }
-}
 ${REPOSITORY_DETAILS}
 `;
 

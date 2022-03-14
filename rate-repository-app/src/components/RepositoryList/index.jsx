@@ -59,22 +59,12 @@ export const RepositoryListContainer = ({ repositories, onEndReach }) => {
 };
 
 const RepositoryList = () => {
-  const [repositories, setRepositories] = useState(undefined);
   const [sortingMenuVisible, setSortingMenuVisible] = useState(false);
   const [orderBy, setOrderBy] = useState('CREATED_AT');
   const [orderDirection, setOrderDirection] = useState('DESC');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchKeywordDebounce] = useDebounce(searchKeyword, 500);
-  const fetchRepositories = useRepositories();
-
-  useEffect(() => {  
-    const fetchData = async () => {
-      const response = await fetchRepositories(orderBy, orderDirection, searchKeywordDebounce);
-      setRepositories(response.data.repositories);
-    };
-
-    fetchData();
-  }, [orderBy, orderDirection, searchKeywordDebounce]);
+  const { repositories, fetchMore } = useRepositories(orderBy, orderDirection, searchKeywordDebounce);
 
   const openMenu = () => setSortingMenuVisible(true);
   const closeMenu = () => setSortingMenuVisible(false);
@@ -96,7 +86,7 @@ const RepositoryList = () => {
   };
 
   const onEndReach = () => {
-    console.log('At the end of the list!');
+    fetchMore();
   };
 
   const styles = StyleSheet.create({

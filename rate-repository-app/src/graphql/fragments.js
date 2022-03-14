@@ -21,6 +21,7 @@ export const REPOSITORY_AND_REVIEW_DETAILS = gql`
     ...RepositoryDetails
     reviews {
       edges {
+        cursor
         node {
           id
           text

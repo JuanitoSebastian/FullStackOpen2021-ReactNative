@@ -1,17 +1,35 @@
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { ALL_REPOSITORIES_ORDERED_SEARCH } from '../graphql/queries';
 
-const useRepositories = () => {
-  const [loadRepositories, { data, loading, fetchMore, ...result }] = useLazyQuery(ALL_REPOSITORIES_ORDERED_SEARCH, {
+const useRepositories = (orderBy = 'CREATED_AT', orderDirection = "DESC", searchKeyword = undefined, first = 8) => {
+  const { data, loading, fetchMore, ...result } = useQuery(ALL_REPOSITORIES_ORDERED_SEARCH, {
+    variables: { orderBy, orderDirection, searchKeyword, first },
     fetchPolicy: 'cache-and-network'
   });
+  
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+    if (!canFetchMore) {
+      return;
+    }
 
-  const fetchRepositories = async (orderBy = 'CREATED_AT', orderDirection = "DESC", searchKeyword = undefined) => {
-    const response = await loadRepositories({ variables: { orderBy, orderDirection, searchKeyword }});
-    return response;
+    fetchMore({
+      variables: {
+        after: data.repositories.pageInfo.endCursor,
+        orderBy, 
+        orderDirection, 
+        searchKeyword, 
+        first
+      },
+    });
   };
 
-  return fetchRepositories;
+  return {
+    repositories: data?.repositories,
+    fetchMore: handleFetchMore,
+    loading,
+    ...result,
+  };
 };
 
 export default useRepositories;
