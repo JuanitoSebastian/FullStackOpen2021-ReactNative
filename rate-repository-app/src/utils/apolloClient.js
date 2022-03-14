@@ -4,7 +4,6 @@ import { setContext } from '@apollo/client/link/context';
 import { relayStylePagination } from '@apollo/client/utilities';
 
 const httpLink = createHttpLink({
-  // Replace the IP address part with your own IP address!
   uri: Constants.manifest.extra.apolloUri
 });
 
