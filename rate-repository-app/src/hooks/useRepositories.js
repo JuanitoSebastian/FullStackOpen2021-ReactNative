@@ -1,12 +1,17 @@
-import { useQuery } from '@apollo/client';
-import { ALL_REPOSITORIES } from '../graphql/queries';
+import { useLazyQuery } from '@apollo/client';
+import { ALL_REPOSITORIES_ORDERED_SEARCH } from '../graphql/queries';
 
 const useRepositories = () => {
-  const queryResult = useQuery(ALL_REPOSITORIES, {
-    fetchPolicy: 'cache-and-network',
+  const [loadRepositories, { data, loading, fetchMore, ...result }] = useLazyQuery(ALL_REPOSITORIES_ORDERED_SEARCH, {
+    fetchPolicy: 'cache-and-network'
   });
 
-  return queryResult;
+  const fetchRepositories = async (orderBy = 'CREATED_AT', orderDirection = "DESC", searchKeyword = undefined) => {
+    const response = await loadRepositories({ variables: { orderBy, orderDirection, searchKeyword }});
+    return response;
+  };
+
+  return fetchRepositories;
 };
 
 export default useRepositories;

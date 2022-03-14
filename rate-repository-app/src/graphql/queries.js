@@ -14,6 +14,32 @@ export const ALL_REPOSITORIES = gql`
   ${REPOSITORY_DETAILS}
 `;
 
+export const ALL_REPOSITORIES_ORDERED = gql`
+  query repositories($orderDirection: OrderDirection, $orderBy: AllRepositoriesOrderBy) {
+    repositories(orderDirection: $orderDirection, orderBy: $orderBy) {
+      edges {
+        node {
+          ...RepositoryDetails
+        }
+      }
+    }
+  }
+  ${REPOSITORY_DETAILS}
+`;
+
+export const ALL_REPOSITORIES_ORDERED_SEARCH = gql`
+query repositories($orderDirection: OrderDirection, $orderBy: AllRepositoriesOrderBy, $searchKeyword: String) {
+  repositories(orderDirection: $orderDirection, orderBy: $orderBy, searchKeyword: $searchKeyword) {
+    edges {
+      node {
+        ...RepositoryDetails
+      }
+    }
+  }
+}
+${REPOSITORY_DETAILS}
+`;
+
 export const FIND_REPOSITORY = gql`
   query repository($repositoryId: ID!) {
     repository(id: $repositoryId) {
