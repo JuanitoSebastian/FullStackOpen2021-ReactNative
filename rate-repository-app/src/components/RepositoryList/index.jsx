@@ -1,5 +1,5 @@
 import { FlatList, View, StyleSheet, Pressable } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { useNavigate } from 'react-router-native';
 import { Button, Menu, Provider, Searchbar } from 'react-native-paper';

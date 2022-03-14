@@ -53,12 +53,32 @@ ${REPOSITORY_DETAILS}
 `;
 
 export const FIND_REPOSITORY = gql`
-  query repository($repositoryId: ID!) {
+  query repository($repositoryId: ID!, $first: Int, $after: String) {
     repository(id: $repositoryId) {
-      ...RepositoryAndReviewDetails
+      ...RepositoryDetails
+      reviews(first: $first, after: $after) {
+        pageInfo {
+          hasNextPage
+          endCursor
+          startCursor
+        }
+        edges {
+          cursor
+          node {
+            id
+            text
+            rating
+            createdAt
+            user {
+              id
+              username
+            }
+          }
+        }
+      }
     }
   }
-  ${REPOSITORY_AND_REVIEW_DETAILS}
+  ${REPOSITORY_DETAILS}
 `;
 
 export const CURRENT_USER = gql`

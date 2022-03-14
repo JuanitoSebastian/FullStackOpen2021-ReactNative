@@ -1,17 +1,33 @@
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { FIND_REPOSITORY } from '../graphql/queries';
 
-const useRepository = () => {
-  const [loadRepository] = useLazyQuery(FIND_REPOSITORY, {
+const useRepository = (id, first = 2) => {
+  const { data, loading, fetchMore, ...result } = useQuery(FIND_REPOSITORY, {
     fetchPolicy: 'cache-and-network',
+    variables: { repositoryId: id, first }
   });
 
-  const fetchRepository = async (id) => {
-    const response = await loadRepository({ variables: { repositoryId: id } });
-    return response;
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repository.reviews.pageInfo.hasNextPage;
+    if (!canFetchMore) {
+      return;
+    }
+
+    fetchMore({
+      variables: {
+        repositoryId: id,
+        after: data.repository.reviews.pageInfo.endCursor,
+        first
+      },
+    });
   };
 
-  return fetchRepository;
+  return {
+    repository: data?.repository,
+    fetchMore: handleFetchMore,
+    loading,
+    ...result,
+  };
 };
 
 export default useRepository;

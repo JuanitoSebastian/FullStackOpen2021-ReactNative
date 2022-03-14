@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import theme from '../../theme';
 import { useParams } from 'react-router-native';
@@ -8,8 +7,7 @@ import useRepository from '../../hooks/useRepository';
 const RepositoryView = () => {
 
   const { id } = useParams();
-  const fetchRepository = useRepository();
-  const [repo, setRepo] = useState(undefined);
+  const { repository, fetchMore } = useRepository(id, 5);
 
   const styles = StyleSheet.create({
     flexItem: {
@@ -21,17 +19,14 @@ const RepositoryView = () => {
     }
   });
 
+  const onEndReach = () => {
+    fetchMore();
+  };
 
-  useEffect(async () => {
-    const { data } = await fetchRepository(id);
-    const repoToSet = data.repository;
-    setRepo(repoToSet);
-  }, []);
-
-  if (repo) {
+  if (repository) {
     return (
       <View style={styles.flexItem}>
-        <RepositoryItem {...repo} detailed={true} />
+        <RepositoryItem {...repository} detailed={true} onEndReach={onEndReach} />
       </View>
     );
   }

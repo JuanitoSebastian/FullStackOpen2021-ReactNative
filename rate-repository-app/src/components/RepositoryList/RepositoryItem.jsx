@@ -90,6 +90,8 @@ const RepositoryItem = (props) => {
           </Pressable>
           <FlatList
             style={styles.reviewList}
+            onEndReachedThreshold={0.05}
+            onEndReached={props.onEndReach}
             data={reviews}
             renderItem={({ item }) => <ReviewView {...item} />}
             ItemSeparatorComponent={ItemSeparator}
